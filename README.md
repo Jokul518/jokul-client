@@ -1,6 +1,6 @@
-# my-project
+# Jokul-Client
 
-> An electron-vue project
+> my bolg client
 
 #### Build Setup
 
@@ -17,6 +17,7 @@ npm run build
 
 ```
 
----
+#### Version Record
 
-This project was generated with [electron-vue](https://github.com/SimulatedGREG/electron-vue) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).
+* **v0.0.1** 项目初始化
+* **v0.0.2** 菜单路由初始化
