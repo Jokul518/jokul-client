@@ -1,15 +1,22 @@
 <template>
-  <div id="app">
-    <router-view></router-view>
-  </div>
+    <div id="app">
+        <menu-nav />
+    </div>
 </template>
 
 <script>
-  export default {
-    name: 'my-project'
-  }
+import MenuNav from "./components/menu/MenuNav";
+export default {
+    name: "my-project",
+    components: {
+        "menu-nav": MenuNav
+    }
+};
 </script>
 
 <style>
-  /* CSS */
+* {
+    margin: 0;
+    padding: 0;
+}
 </style>

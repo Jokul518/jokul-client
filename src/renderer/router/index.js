@@ -11,6 +11,26 @@ export default new Router({
       component: require('@/view/Home').default
     },
     {
+      path: '/category',
+      name: 'category',
+      component: require('@/view/Category').default
+    },
+    {
+      path: '/timeline',
+      name: 'timeline',
+      component: require('@/view/TimeLine').default
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: require('@/view/About').default
+    },
+    {
+      path: '/write',
+      name: 'write',
+      component: require('@/view/Write').default
+    },
+    {
       path: '*',
       redirect: '/'
     }
