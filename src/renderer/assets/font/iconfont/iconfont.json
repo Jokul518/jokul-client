@@ -6,6 +6,48 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "357707",
+      "name": "山",
+      "font_class": "1",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "1770363",
+      "name": "方向",
+      "font_class": "left1",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "2468667",
+      "name": "方向",
+      "font_class": "up1",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "5604270",
+      "name": "方向",
+      "font_class": "arrow-down",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "6703932",
+      "name": "刷新",
+      "font_class": "shuaxin",
+      "unicode": "e6e2",
+      "unicode_decimal": 59106
+    },
+    {
+      "icon_id": "9539228",
+      "name": "方向",
+      "font_class": "angle-right",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
       "icon_id": "5603289",
       "name": "书写",
       "font_class": "shuxie",

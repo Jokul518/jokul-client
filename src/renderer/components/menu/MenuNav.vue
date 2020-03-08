@@ -1,19 +1,19 @@
 <template>
-    <div class="menu-nav">
-        <div class="menu">
+    <div class="menu-nav" :style="{background:bgColor}">
+        <div class="menu" :style="{background:menuBgColor}">
             <router-link
                 :class="{'menu-item':true,'active-menu':currentMenu==item.to}"
                 :to="item.to"
                 v-for="(item,index) in menuList"
                 :key="index"
-                @click.native="currentMenu = item.to"
+                @click.native="switchMenu(item)"
             >
-                <span :class="getIconfontClass(item.iconfont)"></span>
+                <span :class="getIconfontClass(item.iconfont)" :style="{color:menuTitleColor}"></span>
             </router-link>
         </div>
-        <!-- <transition> -->
-            <router-view class="container"></router-view>
-        <!-- </transition> -->
+        <transition name="slide-fade">
+            <router-view class="container" :style="{background:routerBgColor}"></router-view>
+        </transition>
     </div>
 </template>
 <script>
@@ -21,58 +21,61 @@ export default {
     name: "menu-nav",
     data() {
         return {
-            currentMenu: "home",
+            currentMenu: this.$router.history.current.name || "home",
+            bgColor: "#f5f5f5", // 整个背景
+            routerBgColor: "#f5f5f5", // 路由背景颜色
+            menuTitleColor: "#666", // 菜单字体颜色
+            menuBgColor: "white", // 菜单背景颜色
             routes: [],
-            transitionName: "slide-right",
             menuList: [
                 {
                     to: "home",
                     iconfont: "icon-yemian-copy-copy-copy",
-                    color: ""
+                    routerBgColor: "#f5f5f5",
+                    menuBgColor: "white"
                 },
                 {
                     to: "category",
                     iconfont: "icon-icon_type",
-                    color: ""
+                    routerBgColor: "red",
+                    menuBgColor: "red"
                 },
                 {
                     to: "timeline",
                     iconfont: "icon-shijianzhou",
-                    color: ""
+                    routerBgColor: "blue",
+                    menuBgColor: "blue"
                 },
                 {
                     to: "about",
                     iconfont: "icon-guanyu",
-                    color: ""
+                    routerBgColor: "green",
+                    menuBgColor: "green"
                 },
                 {
                     to: "write",
                     iconfont: "icon-shuxie",
-                    color: ""
+                    routerBgColor: "black",
+                    menuBgColor: "black"
                 }
             ]
         };
-    },
-    watch: {
-        $route(to, from) {
-            if (this.routes.includes(to.name)) {
-                this.routes.splice(this.routes.indexOf(to.name), 1);
-            }
-            this.routes.push(to.name);
-
-            const toDepth = this.routes.indexOf(to.path);
-            const fromDepth = this.routes.indexOf(from.path);
-            this.transitionName =
-                toDepth < fromDepth ? "slide-left" : "slide-right";
-        }
-    },
-    created() {
-        this.currentMenu = this.$router.history.current.name;
     },
     methods: {
         // 动态赋值iconfont
         getIconfontClass(iconfont) {
             return `iconfont ${iconfont}`;
+        },
+        switchMenu(item) {
+            this.currentMenu = item.to;
+            this.routerBgColor =
+                item.color == "#f5f5f5" ? "black" : item.routerBgColor;
+            setTimeout(() => {
+                this.menuBgColor = item.menuBgColor;
+                this.bgColor = this.routerBgColor;
+                this.menuTitleColor =
+                    this.menuBgColor == "white" ? "black" : "white";
+            }, 600);
         }
     }
 };
@@ -81,14 +84,18 @@ export default {
 <style lang="scss" scoped>
 .menu-nav {
     height: 100vh;
+    position: relative;
+    overflow: hidden;
     display: flex;
+    transition: background 0.8s;
 
     .menu {
         width: 80px;
-        background: black;
+        background: white;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        transition: background 0.8s, color 0.8s;
 
         .menu-item {
             text-decoration: none;
@@ -101,7 +108,7 @@ export default {
             span {
                 font-size: 22px;
                 display: block;
-                color: white;
+
                 transition: font-size 0.3s, opacity 1s;
 
                 &:hover {
@@ -122,41 +129,22 @@ export default {
         flex: 1;
     }
 }
- 
-// .slide-left-enter-active {
-//     transition: all 0.1s ease;
-// }
- 
 
-// .slide-left-enter-active {
-//     transition: all 0.3s ease;
-// }
-// .slide-left-leave-active {
-//     transition: all 0.8s ease;
-// }
-// .slide-left-enter,
-// .slide-fade-leave-active {
-//     transform: translateX(100%);
-//     opacity: 0;
-// }
-// .slide-left-leave-to {
-//     transform: translateX(-100%);
-//     opacity: 0;
-// }
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+     height: 100vh;
+     will-change: transform;
+     transition: all 500ms;
+     position: absolute;
+     backface-visibility: hidden;
+     perspective: 1000;
+}
 
-// .slide-right-enter-active {
-//     transition: all 0.3s ease;
-// }
-// .slide-right-leave-active {
-//     transition: all 0.8s ease;
-// }
-// .slide-right-enter,
-// .slide-fade-leave-active {
-//     transform: translateX(-100%);
-//     opacity: 0;
-// }
-// .slide-right-leave-to {
-//     transform: translateX(100%);
-//     opacity: 0;
-// }
+.slide-fade-enter {
+    animation-delay: 0.8s;
+    transform: translateX(100vw);
+}
+.slide-fade-enter-active {
+    transition: all 0.8s ease;
+}
 </style>
