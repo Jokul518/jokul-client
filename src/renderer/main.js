@@ -19,3 +19,8 @@ new Vue({
   store,
   template: '<App/>'
 }).$mount('#app')
+
+/**
+ * electron 中文网
+ * https://wizardforcel.gitbooks.io/electron-doc/content/faq/electron-faq.html
+ */
