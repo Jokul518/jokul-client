@@ -1,27 +1,34 @@
 <template>
     <div class="home">
-        <!-- <div class="header">
-            <span class="iconfont icon-left1"></span>
-            <span class="iconfont icon-angle-right"></span>
-            <span class="iconfont icon-shuaxin"></span>
-        </div>-->
         <h1>Welcome to Jokul!</h1>
         <div class="container" :style="{width:`${getBoxWidth}px`}">
-            <blog-item v-for="(item,index) in blogList" :key="index" :item="item"></blog-item>
+            <div class="check-showtype">
+                <span class="iconfont icon-th-large-copy" @click="checkShowType(true)"></span>
+                <span class="iconfont icon-liebiao01" @click="checkShowType(false)"></span>
+            </div>
+            <div v-if="showType" class="item-box" :style="{width:`${getBoxWidth}px`}">
+                <blog-item v-for="(item,index) in blogList" :key="index" :item="item"></blog-item>
+            </div>
+            <div v-if="!showType" class="list-box">
+                <blog-list v-for="(item,index) in blogList" :key="index" :item="item"></blog-list>
+            </div>
         </div>
         <div class="get-more" @click="getMore">加载更多...</div>
     </div>
 </template>
 <script>
 import BlogItem from "../components/home/BlogItem";
+import BlogList from "../components/home/BlogList";
 export default {
     name: "home",
     components: {
-        "blog-item": BlogItem
+        "blog-item": BlogItem,
+        "blog-list": BlogList
     },
     data() {
         return {
             screenWidth: document.body.clientWidth,
+            showType: false,
             limit: 6,
             page: 1,
             blogList: [
@@ -29,7 +36,7 @@ export default {
                     imgUrl:
                         "https://pic1.zhimg.com/80/v2-4c649c463be510d72e883cf8ea260374_1440w.jpg",
                     title: "前端那些事儿",
-                    ruler: "FIS、Webpack、Gulp、Grount、Rollup",
+                    ruler: "FIS、Webpack、Gulp、Grount、RollupFIS、Webpack、Gulp、Grount、RollupFIS、Webpack、Gulp、Grount、RollupFIS、Webpack、Gulp、Grount、RollupFIS、Webpack、Gulp、Grount、Rollup",
                     tag: "性能优化",
                     uploadDate: "2020-03-03 16:22:43"
                 },
@@ -145,6 +152,9 @@ export default {
         }
     },
     methods: {
+        checkShowType(flag) {
+            this.showType = flag;
+        },
         getMore() {
             this.blogList.push(...this.blogList);
         }
@@ -162,35 +172,29 @@ export default {
     box-sizing: border-box;
     padding-bottom: 30px;
 
-    // .header {
-    //     width: 100%;
-    //     height: 40px;
-
-    //     background-color: rgb(240, 240, 240);
-    //     text-align: left;
-    //     padding-left: 30px;
-
-    //     span {
-    //         display: inline-block;
-    //         width: 30px;
-    //         line-height: 40px;
-    //         margin-right: 5px;
-    //         font-size: 18px;
-    //         color: #666;
-    //         text-align: center;
-    //         &:hover {
-    //             font-size: 20px;
-    //             color: #333;
-    //             transition: font-size 0.5s, color 0.5s;
-    //         }
-    //     }
-    // }
     .container {
-        padding: 20px 30px;
-        margin: 20px auto;
+        padding: 0 30px;
+        margin: 0 auto;
+    }
+    .item-box {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+    }
+    .list-box {
+        padding-left: 40px;
+        padding-top: 40px;
+    }
+    .check-showtype {
+        width: 100%;
+        padding-right: 10px;
+        text-align: right;
+        span {
+            font-size: 18px;
+            margin-left: 5px;
+            color: #999;
+            cursor: pointer;
+        }
     }
     .get-more {
         color: #666;

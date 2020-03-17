@@ -6,12 +6,25 @@
 
 <script>
 import MenuNav from "./components/menu/MenuNav";
+import { mapState } from "vuex";
 export default {
     name: "jokul-client",
     components: {
         "menu-nav": MenuNav
     },
- 
+    computed: {
+        ...mapState({
+            menuIndex: state => state.menu.menuIndex
+        })
+    },
+    created() {
+        this.current = this.menuIndex;
+    },
+    watch: {
+        current(val) {
+            this.$store.dispatch("actionMenuIndex", val);
+        }
+    },
     data() {
         return {
             current: 0,
@@ -19,7 +32,7 @@ export default {
                 {
                     to: "home",
                     iconfont: "icon-yemian-copy-copy-copy",
-                    routerBgColor: "#f5f5f5",
+                    routerBgColor: "white",
                     color: "#666",
                     menuBgColor: "white"
                 },

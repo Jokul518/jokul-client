@@ -17,6 +17,7 @@
     </div>
 </template>
 <script>
+// import Cookies from "js-cookie";
 export default {
     name: "menu-nav",
     props: ["value", "menuList"],
@@ -35,9 +36,10 @@ export default {
         };
     },
     created() {
-        // console.warn(this.value);
+        console.warn("++++++",this.value);
     },
     methods: {
+       
         // 动态赋值iconfont
         getIconfontClass(iconfont) {
             return `iconfont ${iconfont}`;
